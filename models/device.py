@@ -6,7 +6,7 @@ class Device(db.Model):
     hostName = db.Column(db.String(255))
     deviceType = db.Column(db.String(255))
     operatingSystem = db.Column(db.String(255))
-    activeConnection = db.Column(db.Bool)
+    activeConnection = db.Column(db.Boolean)
 #   connectionTypes = db.Column(db.List) [1, 2]
 
 def __init__(self, hostName, deviceType, operatingSystem, activeConnection):
