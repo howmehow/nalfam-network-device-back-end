@@ -8,7 +8,7 @@ devices = Blueprint('devices', __name__)
 
 @devices.route('/devices', methods=['POST'])
 def add_device():
-    hostName = request.json['name']
+    hostName = request.json['hostName']
     deviceType = request.json['deviceType']
     operatingSystem = request.json['operatingSystem']
     activeConnection = request.json['activeConnection']
