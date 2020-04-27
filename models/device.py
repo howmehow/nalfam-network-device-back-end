@@ -1,20 +1,18 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-import os
+from db import db
 
-Device = {
-  name: "Alan's phone",
-  type: "phone",
-  operatingSystem: "Android",
-  connectionTypes: [{
-    type: "ethernet",
-    macAddress: "00:1B:44:11:3A:B7",
-    ipAddress: null
-  },
-  {
-    type: "wifi",
-    macAddress: "00:1D:37:12:3B:A9"
-  }],
-  connected: null
-}
+class Device(db.Model):
+    __tablename__ = 'devices'
+    id = db.Column(db.Integer, primary_key = True)
+    hostName = db.Column(db.String(255))
+    deviceType = db.Column(db.String(255))
+    operatingSystem = db.Column(db.String(255))
+    activeConnection = db.Column(db.Bool)
+#   connectionTypes = db.Column(db.List) [1, 2]
+
+def __init__(self, hostName, deviceType, operatingSystem, activeConnection):
+        self.hostName = hostName
+        self.deviceType = deviceType
+        self.operatingSystem = operatingSystem
+        self.activeConnection = activeConnection
+
+
