@@ -14,5 +14,6 @@ def __init__(self, hostName, deviceType, operatingSystem, activeConnection):
         self.deviceType = deviceType
         self.operatingSystem = operatingSystem
         self.activeConnection = activeConnection
+        # changes for git
 
 
