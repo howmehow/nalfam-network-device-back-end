@@ -1,30 +1,6 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-import os
-
-# Init app
-app = Flask(__name__)
-basedir = os.path.abspath(os.path.dirname(__file__))
-# Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Init db
-db = SQLAlchemy(app)
-#Init ma
-ma = Marshmallow(app)
-
-
-from controllers.device_controller import devices
-
-app.register_blueprint(devices, url_prefix='/devices')
-
-# requests go here
-@app.route('/')
-def hello_world():
-    return jsonify({"msg": "Homepage"})
+from utils.app_factory import create_app
 
 if __name__ == '__main__' : 
-    
+    app = create_app()
+    print(app.url_map)
     app.run(debug = True)

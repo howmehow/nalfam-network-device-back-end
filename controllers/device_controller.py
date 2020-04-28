@@ -1,26 +1,37 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, Response
+from sqlalchemy import update
 
-from db import db
+from utils.db import db
 from models.device import Device
-from schemas.deviceSchema import DeviceSchema, device_schema, devices_schema
+from schemas.deviceSchema import device_schema, devices_schema
 
-devices = Blueprint('devices', __name__)
+devices_blueprint = Blueprint('devices_blueprint', __name__)
 
-@devices.route('/devices', methods=['POST'])
+@devices_blueprint.route('/', methods=['POST'])
 def add_device():
-    hostName = request.json['hostName']
-    deviceType = request.json['deviceType']
-    operatingSystem = request.json['operatingSystem']
-    activeConnection = request.json['activeConnection']
-    
-    new_device = Device(hostName, deviceType, operatingSystem, activeConnection)
+    device_data = device_schema.load(request.json)
+    new_device = Device(**device_data)
     db.session.add(new_device)
     db.session.commit()
-
     return device_schema.dump(new_device)
 
-@devices.route('/', methods=['GET'])
+@devices_blueprint.route('/', methods=['GET'])
 def get_devices():
     all_devices = Device.query.all()
-    return devices_schema.dumps(all_devices)
+    for device in all_devices:
+            device.update()
+    devices_data = devices_schema.dumps(all_devices)
+    response = Response(devices_data, status=200, mimetype='application/json')
+    return response
+       
 
+
+
+
+
+# device.update()
+# host_name = request.json['hostName']
+# deviceType = request.json['deviceType']
+# operatingSystem = request.json['operatingSystem']
+# activeConnection = request.json['activeConnection']
+# def function_name(*args, **kwargs)
