@@ -35,8 +35,8 @@ class Device(db.Model):
     
     def update_upload_download(self):
         if self.active_connection:       
-            self.upload_speed = random.getrandbits(4)
-            self.download_speed = random.getrandbits(6)
+            self.upload_speed = random.randint(0, 12)
+            self.download_speed = random.randint(0, 70)
         else:
             self.upload_speed = 0 
             self.download_speed = 0

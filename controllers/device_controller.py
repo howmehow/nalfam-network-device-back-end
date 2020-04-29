@@ -1,9 +1,8 @@
-from flask import Blueprint, request, jsonify, Response
-from sqlalchemy import update
+from flask import Blueprint, request, Response
 
 from utils.db import db
 from models.device import Device
-from schemas.deviceSchema import device_schema, devices_schema
+from schemas.device_schema import device_schema, devices_schema
 
 devices_blueprint = Blueprint('devices_blueprint', __name__)
 
@@ -23,15 +22,3 @@ def get_devices():
     devices_data = devices_schema.dumps(all_devices)
     response = Response(devices_data, status=200, mimetype='application/json')
     return response
-       
-
-
-
-
-
-# device.update()
-# host_name = request.json['hostName']
-# deviceType = request.json['deviceType']
-# operatingSystem = request.json['operatingSystem']
-# activeConnection = request.json['activeConnection']
-# def function_name(*args, **kwargs)

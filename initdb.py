@@ -1,6 +1,6 @@
 import os 
 
-from app_factory import create_app
+from utils.app_factory import create_app
 from utils.db import db
 
 app = create_app()
